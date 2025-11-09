@@ -10,13 +10,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Merge all files into merged.txt
+      - name: Merge all files into merged.yml
         run: |
-          find . -type f -not -path "./.git/*" -exec cat {} + > merged.txt
-          echo "Merged all files into merged.txt"
+          find . -type f -not -path "./.git/*" -not -name "merged.yml" -exec cat {} + > merged.yml
+          echo "Merged all files into merged.yml"
 
       - name: Upload merged file
         uses: actions/upload-artifact@v4
         with:
-          name: merged-all
-          path: merged.txt
+          name: merged-yml
+          path: merged.yml
