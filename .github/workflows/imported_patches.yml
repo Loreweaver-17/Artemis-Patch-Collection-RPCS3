@@ -1,0 +1,22 @@
+name: Merge Patches Files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  merge-txt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Merge .txt files
+        run: |
+          find . -name "*" -exec cat {} + > merged.yml
+          echo "Merged .txt files into merged.yml"
+
+      - name: Upload merged file
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged.txt
+          path: merged.txt
