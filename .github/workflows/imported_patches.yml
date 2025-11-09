@@ -1,22 +1,22 @@
-name: Merge Patches Files
+name: Merge All Files
 
 on:
   workflow_dispatch:
 
 jobs:
-  merge-txt:
+  merge-all:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Merge .txt files
+      - name: Merge all files into merged.txt
         run: |
-          find . -name "*" -exec cat {} + > merged.yml
-          echo "Merged .txt files into merged.yml"
+          find . -type f -not -path "./.git/*" -exec cat {} + > merged.txt
+          echo "Merged all files into merged.txt"
 
       - name: Upload merged file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: merged.txt
+          name: merged-all
           path: merged.txt
